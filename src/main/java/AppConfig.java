@@ -10,22 +10,22 @@ public class AppConfig {
     }
 
     @Bean
-    public PostDB postDB(){
-        return new PostDB();
+    public ConnectionToDB connectionToDB(){
+        return new ConnectionToDB();
     }
 
     @Bean
     public PostDeletion postDeletion(){
-        return new PostDeletion();
+        return new PostDeletion(ConnectionToDB.connectToDB());
     }
 
     @Bean
     public PostDisplay postDisplay(){
-        return new PostDisplay();
+        return new PostDisplay(ConnectionToDB.connectToDB());
     }
 
     @Bean
     public PostWriter postWriter(){
-        return new PostWriter();
+        return new PostWriter(ConnectionToDB.connectToDB());
     }
 }

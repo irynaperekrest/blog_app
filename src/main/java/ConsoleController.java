@@ -1,18 +1,17 @@
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Map;
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class ConsoleController {
 
     @Autowired
     public void controller(){
-        PostDB postDB = new PostDB();
-        PostDisplay postDisplay = new PostDisplay();
-        PostWriter postWriter = new PostWriter();
-        PostDeletion postDeletion = new PostDeletion();
 
-        Map<String, String> posts = postDB.readPostsDBFromFile();
+        Connection conn = ConnectionToDB.connectToDB();
+        PostDisplay postDisplay = new PostDisplay(conn);
+        PostWriter postWriter = new PostWriter(conn);
+        PostDeletion postDeletion = new PostDeletion(conn);
 
         do {
             Scanner scannerAction = new Scanner(System.in);
@@ -43,9 +42,6 @@ public class ConsoleController {
                 break;
             }
         } while (true);
-
-
-        postDB.savePostsDBToFile();
 
     }
 }
