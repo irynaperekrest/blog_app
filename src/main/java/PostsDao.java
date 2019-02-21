@@ -4,8 +4,8 @@ public class PostsDao {
 
     static Connection conn = null;
     static String url = "jdbc:mysql://localhost:3306/blog_db";
-    static String user = "iperekrest";
-    static String password = "RGNaq2012**";
+    static String user = "root";
+    static String password = "pass";
 
     public static void addPost(String title, String text) {
 
