@@ -9,7 +9,7 @@ public class AppConfig {
     }
 
     @Bean
-    public PostsDao connectionToDB(){
+    public PostsDao postsDao(){
         return new PostsDao();
     }
 }
