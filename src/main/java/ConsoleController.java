@@ -1,6 +1,5 @@
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Connection;
 import java.util.Scanner;
 
 public class ConsoleController {
@@ -8,31 +7,28 @@ public class ConsoleController {
     @Autowired
     public void controller(){
 
-        Connection conn = ConnectionToDB.connectToDB();
-        PostDisplay postDisplay = new PostDisplay(conn);
-        PostWriter postWriter = new PostWriter(conn);
-        PostDeletion postDeletion = new PostDeletion(conn);
+        PostsDao postDeletion = new PostsDao();
 
         do {
             Scanner scannerAction = new Scanner(System.in);
-            System.out.println("What do you want to do? Available options: new post, read post, delete post, exit");
+            System.out.println("What do you want to do? Available options: write, read, delete, exit");
             String selectedAction = scannerAction.nextLine();
 
-            if (selectedAction.equalsIgnoreCase("new post")) {
+            if (selectedAction.equalsIgnoreCase("write")) {
 
                 Scanner scannerWriteTitle = new Scanner(System.in);
                 System.out.println("Enter the title of your new post:");
                 Scanner scannerWriteText = new Scanner(System.in);
                 System.out.println("Enter the text of your new post:");
 
-                postWriter.addPost(scannerWriteTitle.nextLine(), scannerWriteText.nextLine());
-            } else if (selectedAction.equalsIgnoreCase("read post")) {
+                PostsDao.addPost(scannerWriteTitle.nextLine(), scannerWriteText.nextLine());
+            } else if (selectedAction.equalsIgnoreCase("read")) {
 
                 Scanner scannerDisplay = new Scanner(System.in);
                 System.out.println("Enter the title of the post you're looking for:");
 
-                postDisplay.displayOnePost(scannerDisplay.nextLine());
-            } else if (selectedAction.equalsIgnoreCase("delete post")) {
+                PostsDao.readPost(scannerDisplay.nextLine());
+            } else if (selectedAction.equalsIgnoreCase("delete")) {
 
                 Scanner scannerDelete = new Scanner(System.in);
                 System.out.println("Enter the title of the post you want to delete:");
